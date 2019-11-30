@@ -139,6 +139,7 @@
             this.Reset_Button.TabIndex = 8;
             this.Reset_Button.Text = "Reset";
             this.Reset_Button.UseVisualStyleBackColor = true;
+            this.Reset_Button.Click += new System.EventHandler(this.Reset_Button_Click);
             // 
             // Start_Button
             // 
@@ -163,7 +164,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(586, 450);

@@ -14,7 +14,7 @@ namespace Snake_AI
     {
         Snake snake;
         bool game_state = false;
-        int ticks = 0;
+        int ticks = 1;
         public Snake_Window()
         {
             InitializeComponent();
@@ -22,14 +22,25 @@ namespace Snake_AI
             snake = new Snake();
             Draw();
         }
-        private void Start_Button_Click(object sender, EventArgs e)
+        private void Reset_Button_Click(object sender, EventArgs e)
+        {
+            if (!game_state)
+            {
+                snake = new Snake();
+                ticks = 0;
+                Draw();
+            }
+        }
+        private void Start_Button_Click(object sender = null, EventArgs e = null)
         {
             game_state = !game_state;
             if (game_state)
             {
+
                 Start_Button.Text = "Pause";
                 this.Start_Button.BackColor = System.Drawing.Color.Red;
                 Clock.Start();
+                Clock_Tick();
             }
             else
             {
@@ -38,23 +49,32 @@ namespace Snake_AI
                 Clock.Stop();
             }
         }
-        private void Clock_Tick(object sender, EventArgs e)
+        private void Clock_Tick(object sender = null, EventArgs e = null)
         {
             ticks++;
             snake.Move();
-            snake.Check_Collisions();
-            if (snake.alive) Draw();
+            Draw();
+            if (!snake.alive)
+            {
+                Clock.Stop();
+                Start_Button_Click();
+            }
         }
         private void Draw()
         {
             Score_Display.Text = string.Format("{0:000}", snake.body.Count);
             Ticks_Display.Text = string.Format("{0:000}", ticks);
-            Generic_Display.Text = string.Format("{0:000}, {1:000}\n{2:000}\n{3:000}\n{4:000}", Settings.bord_size[0], Settings.bord_size[1], Settings.tick_speed, "0", "0");
+            Generic_Display.Text = string.Format("{0}, {1}\n{2}\n{3}\n{4}", Settings.bord_size[0], Settings.bord_size[1], Settings.tick_speed, "0", "0");
             Bitmap bitmap = new Bitmap(Game_Bord.Width, Game_Bord.Height);
             Graphics image = Graphics.FromImage(bitmap);
-            image.FillRectangle(Brushes.BlueViolet, 0, 0, Game_Bord.Width, Game_Bord.Height);
-            image.FillRectangle(Brushes.Red, Settings.cell_size[0] * snake.body[snake.body.Count - 1][0], Settings.cell_size[1] * snake.body[snake.body.Count - 1][1], Settings.cell_size[0], Settings.cell_size[1]);;
+            image.FillRectangle(Brushes.Gray, 0, 0, Game_Bord.Width, Game_Bord.Height);
+            for (int i = 0; i < snake.body.Count; i++)
+            {
+                image.FillRectangle(snake.alive? Brushes.Blue : Brushes.Red, Settings.cell_size[0] * snake.body[i][0], Settings.cell_size[1] * snake.body[i][1], Settings.cell_size[0], Settings.cell_size[1]);
+            }
+            image.FillEllipse(Brushes.Green, Settings.cell_size[0] * snake.pill.position[0], Settings.cell_size[1] * snake.pill.position[1], Settings.cell_size[0], Settings.cell_size[1]);
             Game_Bord.Image = bitmap;
         }
+        
     }
 }
