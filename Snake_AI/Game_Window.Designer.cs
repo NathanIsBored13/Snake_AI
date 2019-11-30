@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Game_Bord = new System.Windows.Forms.PictureBox();
             this.Static1 = new System.Windows.Forms.Label();
             this.Score_Display = new System.Windows.Forms.Label();
@@ -37,7 +38,8 @@
             this.Generic_Display = new System.Windows.Forms.Label();
             this.Settings_Button = new System.Windows.Forms.Button();
             this.Reset_Button = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Start_Button = new System.Windows.Forms.Button();
+            this.Clock = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Game_Bord)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,7 +119,6 @@
             this.Generic_Display.Size = new System.Drawing.Size(49, 52);
             this.Generic_Display.TabIndex = 6;
             this.Generic_Display.Text = "000, 000\r\n000\r\n000\r\n000";
-            this.Generic_Display.Click += new System.EventHandler(this.Generic_Display_Click);
             // 
             // Settings_Button
             // 
@@ -139,26 +140,34 @@
             this.Reset_Button.Text = "Reset";
             this.Reset_Button.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // Start_Button
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.button1.Location = new System.Drawing.Point(450, 397);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 41);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = false;
+            this.Start_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.Start_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Start_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.Start_Button.Location = new System.Drawing.Point(450, 398);
+            this.Start_Button.Name = "Start_Button";
+            this.Start_Button.Size = new System.Drawing.Size(124, 40);
+            this.Start_Button.TabIndex = 9;
+            this.Start_Button.Text = "Play";
+            this.Start_Button.UseVisualStyleBackColor = false;
+            this.Start_Button.Click += new System.EventHandler(this.Start_Button_Click);
+            // 
+            // Clock
+            // 
+            this.Clock.Interval = 750;
+            this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
             // Snake_Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(586, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Start_Button);
             this.Controls.Add(this.Reset_Button);
             this.Controls.Add(this.Settings_Button);
             this.Controls.Add(this.Generic_Display);
@@ -187,7 +196,7 @@
         private System.Windows.Forms.Label Generic_Display;
         private System.Windows.Forms.Button Settings_Button;
         private System.Windows.Forms.Button Reset_Button;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Start_Button;
+        private System.Windows.Forms.Timer Clock;
     }
 }
-
