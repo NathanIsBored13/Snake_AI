@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Snake_AI
 {
     public class Pill
     {
-        public int[] position { get; set; }
+        public Point position { get; set; }
         Random random;
         Snake snake;
         public Pill(Snake snake)
@@ -21,8 +18,8 @@ namespace Snake_AI
         {
             do
             {
-                position = new int[2] { random.Next(0, Settings.bord_size[0]), random.Next(0, Settings.bord_size[1]) };
-            } while (snake.body.Any(x => x == position));
+                position = new Point (random.Next(0, Settings.bord_size[0]), random.Next(0, Settings.bord_size[1]));
+            } while (snake.body.Any(x => x.x == position.x && x.y == position.y));
         }
     }
 }

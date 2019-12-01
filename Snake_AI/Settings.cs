@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Snake_AI
 {
     public static class Settings
@@ -15,7 +10,7 @@ namespace Snake_AI
         {
             bord_size = new int[2] { 20, 20 };
             cell_size = new float[2] { width / bord_size[0], height / bord_size[1] };
-            tick_speed = 500;
+            tick_speed = 250;
         }
     }
 }
