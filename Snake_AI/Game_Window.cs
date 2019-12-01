@@ -29,13 +29,14 @@ namespace Snake_AI
         private void Reset_Button_Click(object sender = null, EventArgs e = null)
         {
             snake = new Snake();
+            direction_buffer = Direction.up;
             ticks = 0;
+            Stop_Game();
             Draw();
-            if (game_state) Start_Button_Click();
         }
         private void Settings_Button_Click(object sender, EventArgs e)
         {
-            Clock.Stop();
+            Stop_Game();
             Settings_Window settings_window = new Settings_Window();
             settings_window.ShowDialog();
             settings_window.Dispose();
@@ -43,26 +44,32 @@ namespace Snake_AI
             float[] buffer = Settings.cell_size;
             Settings.Calculate_Cell_Size(Game_Board.Width, Game_Board.Height);
             if (buffer[0] != Settings.cell_size[0] && buffer[1] != Settings.cell_size[1]) Reset_Button_Click();
-            if (game_state) Start_Button_Click();
             Draw();
         }
-        private void Start_Button_Click(object sender = null, EventArgs e = null)
+        private void Start_Button_Click(object sender, EventArgs e)
         {
-            game_state = !game_state;
-            if (game_state)
+            Console.WriteLine("pressed");
+            if (!game_state)
             {
-
-                Start_Button.Text = "Pause";
-                Start_Button.BackColor = Color.Red;
-                Clock.Start();
-                Clock_Tick();
+                if (!snake.alive) Reset_Button_Click();
+                Start_Game();
             }
-            else
-            {
-                Start_Button.Text = "Play";
-                Start_Button.BackColor = Color.FromArgb(0, 192, 0);
-                Clock.Stop();
-            }
+            else Stop_Game();
+        }
+        private void Start_Game()
+        {
+            game_state = true;
+            Start_Button.Text = "Pause";
+            Start_Button.BackColor = Color.Red;
+            Clock.Start();
+            Clock_Tick();
+        }
+        private void Stop_Game()
+        {
+            game_state = false;
+            Start_Button.Text = "Play";
+            Start_Button.BackColor = Color.FromArgb(0, 192, 0);
+            Clock.Stop();
         }
         private void Clock_Tick(object sender = null, EventArgs e = null)
         {
@@ -71,11 +78,7 @@ namespace Snake_AI
             snake.direction = direction_buffer;
             snake.Move();
             Draw();
-            if (!snake.alive)
-            {
-                Clock.Stop();
-                Start_Button_Click();
-            }
+            if (!snake.alive) Stop_Game();
         }
         private void Draw()
         {
