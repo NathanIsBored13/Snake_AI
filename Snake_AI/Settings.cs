@@ -9,8 +9,12 @@ namespace Snake_AI
         public static void Initialise(float width, float height)
         {
             bord_size = new int[2] { 20, 20 };
+            tick_speed = 200;
+            Calculate_Cell_Size(width, height);
+        }
+        public static void Calculate_Cell_Size(float width, float height)
+        {
             cell_size = new float[2] { width / bord_size[0], height / bord_size[1] };
-            tick_speed = 250;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Snake_AI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Game_Bord = new System.Windows.Forms.PictureBox();
+            this.Game_Board = new System.Windows.Forms.PictureBox();
             this.Static1 = new System.Windows.Forms.Label();
             this.Score_Display = new System.Windows.Forms.Label();
             this.Static2 = new System.Windows.Forms.Label();
@@ -42,28 +42,26 @@ namespace Snake_AI
             this.Reset_Button = new System.Windows.Forms.Button();
             this.Start_Button = new System.Windows.Forms.Button();
             this.Clock = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.Game_Bord)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Game_Board)).BeginInit();
             this.SuspendLayout();
             // 
-            // Game_Bord
+            // Game_Board
             // 
-            this.Game_Bord.BackColor = System.Drawing.SystemColors.GrayText;
-            this.Game_Bord.Location = new System.Drawing.Point(18, 18);
-            this.Game_Bord.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Game_Bord.Name = "Game_Bord";
-            this.Game_Bord.Size = new System.Drawing.Size(639, 655);
-            this.Game_Bord.TabIndex = 0;
-            this.Game_Bord.TabStop = false;
+            this.Game_Board.BackColor = System.Drawing.SystemColors.GrayText;
+            this.Game_Board.Location = new System.Drawing.Point(12, 12);
+            this.Game_Board.Name = "Game_Board";
+            this.Game_Board.Size = new System.Drawing.Size(426, 426);
+            this.Game_Board.TabIndex = 0;
+            this.Game_Board.TabStop = false;
             // 
             // Static1
             // 
             this.Static1.AutoSize = true;
             this.Static1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Static1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.Static1.Location = new System.Drawing.Point(666, 18);
-            this.Static1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Static1.Location = new System.Drawing.Point(444, 12);
             this.Static1.Name = "Static1";
-            this.Static1.Size = new System.Drawing.Size(109, 37);
+            this.Static1.Size = new System.Drawing.Size(75, 26);
             this.Static1.TabIndex = 1;
             this.Static1.Text = "Score:";
             // 
@@ -72,10 +70,9 @@ namespace Snake_AI
             this.Score_Display.AutoSize = true;
             this.Score_Display.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Score_Display.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.Score_Display.Location = new System.Drawing.Point(788, 18);
-            this.Score_Display.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Score_Display.Location = new System.Drawing.Point(525, 12);
             this.Score_Display.Name = "Score_Display";
-            this.Score_Display.Size = new System.Drawing.Size(71, 37);
+            this.Score_Display.Size = new System.Drawing.Size(48, 26);
             this.Score_Display.TabIndex = 2;
             this.Score_Display.Text = "000";
             // 
@@ -84,10 +81,9 @@ namespace Snake_AI
             this.Static2.AutoSize = true;
             this.Static2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Static2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.Static2.Location = new System.Drawing.Point(666, 58);
-            this.Static2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Static2.Location = new System.Drawing.Point(444, 38);
             this.Static2.Name = "Static2";
-            this.Static2.Size = new System.Drawing.Size(101, 37);
+            this.Static2.Size = new System.Drawing.Size(68, 26);
             this.Static2.TabIndex = 3;
             this.Static2.Text = "Ticks:";
             // 
@@ -96,10 +92,9 @@ namespace Snake_AI
             this.Ticks_Display.AutoSize = true;
             this.Ticks_Display.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Ticks_Display.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.Ticks_Display.Location = new System.Drawing.Point(788, 58);
-            this.Ticks_Display.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Ticks_Display.Location = new System.Drawing.Point(525, 38);
             this.Ticks_Display.Name = "Ticks_Display";
-            this.Ticks_Display.Size = new System.Drawing.Size(71, 37);
+            this.Ticks_Display.Size = new System.Drawing.Size(48, 26);
             this.Ticks_Display.TabIndex = 4;
             this.Ticks_Display.Text = "000";
             // 
@@ -109,12 +104,11 @@ namespace Snake_AI
             this.Static3.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Static3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.Static3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Static3.Location = new System.Drawing.Point(670, 98);
-            this.Static3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Static3.Location = new System.Drawing.Point(447, 64);
             this.Static3.Name = "Static3";
-            this.Static3.Size = new System.Drawing.Size(104, 100);
+            this.Static3.Size = new System.Drawing.Size(65, 52);
             this.Static3.TabIndex = 5;
-            this.Static3.Text = "Window Size:\r\nHead Pos:\r\nTick Speed:\r\nBlocks Free:\r\nAI State:";
+            this.Static3.Text = "Board Size:\r\nHead Pos:\r\nTick Speed:\r\nCells free:";
             // 
             // Generic_Display
             // 
@@ -122,32 +116,30 @@ namespace Snake_AI
             this.Generic_Display.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Generic_Display.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.Generic_Display.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Generic_Display.Location = new System.Drawing.Point(788, 98);
-            this.Generic_Display.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Generic_Display.Location = new System.Drawing.Point(525, 64);
             this.Generic_Display.Name = "Generic_Display";
-            this.Generic_Display.Size = new System.Drawing.Size(71, 100);
+            this.Generic_Display.Size = new System.Drawing.Size(49, 52);
             this.Generic_Display.TabIndex = 6;
-            this.Generic_Display.Text = "000, 000\r\n000, 000\r\n000\r\n000\r\n000";
+            this.Generic_Display.Text = "000, 000\r\n000, 000\r\n000\r\n000";
             // 
             // Settings_Button
             // 
             this.Settings_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.Settings_Button.Location = new System.Drawing.Point(674, 203);
-            this.Settings_Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Settings_Button.Location = new System.Drawing.Point(449, 119);
             this.Settings_Button.Name = "Settings_Button";
-            this.Settings_Button.Size = new System.Drawing.Size(186, 62);
+            this.Settings_Button.Size = new System.Drawing.Size(124, 40);
             this.Settings_Button.TabIndex = 7;
             this.Settings_Button.TabStop = false;
             this.Settings_Button.Text = "Settings";
             this.Settings_Button.UseVisualStyleBackColor = true;
+            this.Settings_Button.Click += new System.EventHandler(this.Settings_Button_Click);
             // 
             // Reset_Button
             // 
             this.Reset_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.Reset_Button.Location = new System.Drawing.Point(673, 275);
-            this.Reset_Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Reset_Button.Location = new System.Drawing.Point(450, 165);
             this.Reset_Button.Name = "Reset_Button";
-            this.Reset_Button.Size = new System.Drawing.Size(186, 62);
+            this.Reset_Button.Size = new System.Drawing.Size(124, 40);
             this.Reset_Button.TabIndex = 8;
             this.Reset_Button.TabStop = false;
             this.Reset_Button.Text = "Reset";
@@ -159,10 +151,9 @@ namespace Snake_AI
             this.Start_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.Start_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Start_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.Start_Button.Location = new System.Drawing.Point(675, 612);
-            this.Start_Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Start_Button.Location = new System.Drawing.Point(450, 398);
             this.Start_Button.Name = "Start_Button";
-            this.Start_Button.Size = new System.Drawing.Size(186, 62);
+            this.Start_Button.Size = new System.Drawing.Size(124, 40);
             this.Start_Button.TabIndex = 9;
             this.Start_Button.TabStop = false;
             this.Start_Button.Text = "Play";
@@ -175,12 +166,12 @@ namespace Snake_AI
             // 
             // Snake_Window
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(879, 692);
+            this.ClientSize = new System.Drawing.Size(586, 450);
             this.Controls.Add(this.Start_Button);
             this.Controls.Add(this.Reset_Button);
             this.Controls.Add(this.Settings_Button);
@@ -190,14 +181,13 @@ namespace Snake_AI
             this.Controls.Add(this.Static2);
             this.Controls.Add(this.Score_Display);
             this.Controls.Add(this.Static1);
-            this.Controls.Add(this.Game_Bord);
+            this.Controls.Add(this.Game_Board);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Snake_Window";
             this.Text = "Snake";
             this.Load += new System.EventHandler(this.Snake_Window_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Snake_Window_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.Game_Bord)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Game_Board)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,7 +195,7 @@ namespace Snake_AI
 
         #endregion
 
-        private System.Windows.Forms.PictureBox Game_Bord;
+        private System.Windows.Forms.PictureBox Game_Board;
         private System.Windows.Forms.Label Static1;
         private System.Windows.Forms.Label Score_Display;
         private System.Windows.Forms.Label Static2;

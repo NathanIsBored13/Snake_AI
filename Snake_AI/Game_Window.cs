@@ -14,7 +14,7 @@ namespace Snake_AI
         public Snake_Window()
         {
             InitializeComponent();
-            Settings.Initialise(Game_Bord.Width, Game_Bord.Height);
+            Settings.Initialise(Game_Board.Width, Game_Board.Height);
             Clock.Interval = Settings.tick_speed;
             snake = new Snake();
             Draw();
@@ -26,14 +26,25 @@ namespace Snake_AI
                 control.PreviewKeyDown += new PreviewKeyDownEventHandler(Snake_Window_PreviewKeyDown);
             }
         }
-        private void Reset_Button_Click(object sender, EventArgs e)
+        private void Reset_Button_Click(object sender = null, EventArgs e = null)
         {
-            if (!game_state)
-            {
-                snake = new Snake();
-                ticks = 0;
-                Draw();
-            }
+            snake = new Snake();
+            ticks = 0;
+            Draw();
+            if (game_state) Start_Button_Click();
+        }
+        private void Settings_Button_Click(object sender, EventArgs e)
+        {
+            Clock.Stop();
+            Settings_Window settings_window = new Settings_Window();
+            settings_window.ShowDialog();
+            settings_window.Dispose();
+            Clock.Interval = Settings.tick_speed;
+            float[] buffer = Settings.cell_size;
+            Settings.Calculate_Cell_Size(Game_Board.Width, Game_Board.Height);
+            if (buffer[0] != Settings.cell_size[0] && buffer[1] != Settings.cell_size[1]) Reset_Button_Click();
+            if (game_state) Start_Button_Click();
+            Draw();
         }
         private void Start_Button_Click(object sender = null, EventArgs e = null)
         {
@@ -70,16 +81,16 @@ namespace Snake_AI
         {
             Score_Display.Text = string.Format("{0:000}", snake.body.Count);
             Ticks_Display.Text = string.Format("{0:000}", ticks);
-            Generic_Display.Text = string.Format("{0}, {1}\n{2}, {3}\n{4}\n{5}\n{6}", Settings.bord_size[0], Settings.bord_size[1], snake.body[snake.body.Count - 1].x, snake.body[snake.body.Count - 1].y, Settings.tick_speed, "0", "0");
-            Bitmap bitmap = new Bitmap(Game_Bord.Width, Game_Bord.Height);
+            Generic_Display.Text = string.Format("{0}, {1}\n{2}, {3}\n{4}\n{5}", Settings.bord_size[0], Settings.bord_size[1], snake.body[snake.body.Count - 1].x, snake.body[snake.body.Count - 1].y, Settings.tick_speed, Settings.bord_size[0] * Settings.bord_size[1] - snake.body.Count - 1);
+            Bitmap bitmap = new Bitmap(Game_Board.Width, Game_Board.Height);
             Graphics image = Graphics.FromImage(bitmap);
-            image.FillRectangle(Brushes.Gray, 0, 0, Game_Bord.Width, Game_Bord.Height);
+            image.FillRectangle(Brushes.Gray, 0, 0, Game_Board.Width, Game_Board.Height);
             for (int i = 0; i < snake.body.Count; i++)
             {
-                image.FillRectangle(snake.alive? Brushes.Blue : Brushes.Red, Settings.cell_size[0] * snake.body[i].x, Settings.cell_size[1] * snake.body[i].y, Settings.cell_size[0], Settings.cell_size[1]);
+                image.FillRectangle(snake.alive? (i == snake.body.Count - 1? Brushes.Blue : Brushes.ForestGreen) : Brushes.Red, Settings.cell_size[0] * snake.body[i].x, Settings.cell_size[1] * snake.body[i].y, Settings.cell_size[0], Settings.cell_size[1]);
             }
-            image.FillEllipse(Brushes.Green, Settings.cell_size[0] * snake.pill.position.x, Settings.cell_size[1] * snake.pill.position.y, Settings.cell_size[0], Settings.cell_size[1]);
-            Game_Bord.Image = bitmap;
+            image.FillEllipse(Brushes.Orange, Settings.cell_size[0] * snake.pill.position.x, Settings.cell_size[1] * snake.pill.position.y, Settings.cell_size[0], Settings.cell_size[1]);
+            Game_Board.Image = bitmap;
         }
         private void Snake_Window_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -90,7 +101,6 @@ namespace Snake_AI
         }
         private void Snake_Window_KeyDown(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("pressed");
             if (e.KeyCode == Keys.Up && snake.direction != Direction.down) direction_buffer = Direction.up;
             else if (e.KeyCode == Keys.Down && snake.direction != Direction.up) direction_buffer = Direction.down;
             else if (e.KeyCode == Keys.Left && snake.direction != Direction.right) direction_buffer = Direction.left;
@@ -99,4 +109,3 @@ namespace Snake_AI
         }
     }
 }
-
