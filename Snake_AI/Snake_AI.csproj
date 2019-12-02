@@ -63,6 +63,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Victoy_Window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Victoy_Window.Designer.cs">
+      <DependentUpon>Victoy_Window.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Game_Window.resx">
       <DependentUpon>Game_Window.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +83,9 @@
     </Compile>
     <EmbeddedResource Include="Settings_Window.resx">
       <DependentUpon>Settings_Window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Victoy_Window.resx">
+      <DependentUpon>Victoy_Window.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

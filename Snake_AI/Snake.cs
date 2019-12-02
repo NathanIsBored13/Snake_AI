@@ -7,20 +7,20 @@ namespace Snake_AI
     public class Snake
     {
         public Direction direction { get; set; }
-        public List<Point> body { get; set; }
+        public List<Vector> body { get; set; }
         public Pill pill { get; set; }
         public bool alive { get; set; }
         public Snake()
         {
-            body = new List<Point>();
-            body.Add(new Point ((int)Math.Floor((double)Settings.bord_size[0] / 2), (int)Math.Floor((double)Settings.bord_size[1] / 2)));
+            body = new List<Vector>();
+            body.Add(new Vector ((int)Math.Floor((double)Settings.bord_size.x / 2), (int)Math.Floor((double)Settings.bord_size.y / 2)));
             direction = Direction.up;
             pill = new Pill(this);
             alive = true;
         }
         public void Move()
         {
-            Point head = body[body.Count - 1];
+            Vector head = body[body.Count - 1];
             if (direction == Direction.right) head.x += 1;
             else if (direction == Direction.left) head.x += -1;
             else if (direction == Direction.down) head.y += 1;
@@ -33,9 +33,9 @@ namespace Snake_AI
                 else body.RemoveAt(0);
             }
         }
-        public void Check_Collisions(Point check)
+        public void Check_Collisions(Vector check)
         {
-            if (check.x < 0 || check.x > Settings.bord_size[0] - 1 || check.y < 0 || check.y > Settings.bord_size[1] - 1)
+            if (check.x < 0 || check.x > Settings.bord_size.y - 1 || check.y < 0 || check.y > Settings.bord_size.x - 1)
             {
                 alive = false;
             }

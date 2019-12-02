@@ -41,14 +41,13 @@ namespace Snake_AI
             settings_window.ShowDialog();
             settings_window.Dispose();
             Clock.Interval = Settings.tick_speed;
-            float[] buffer = Settings.cell_size;
+            VectorF buffer = Settings.cell_size;
             Settings.Calculate_Cell_Size(Game_Board.Width, Game_Board.Height);
-            if (buffer[0] != Settings.cell_size[0] && buffer[1] != Settings.cell_size[1]) Reset_Button_Click();
+            if (buffer.x != Settings.cell_size.x && buffer.y != Settings.cell_size.y) Reset_Button_Click();
             Draw();
         }
         private void Start_Button_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("pressed");
             if (!game_state)
             {
                 if (!snake.alive) Reset_Button_Click();
@@ -73,31 +72,42 @@ namespace Snake_AI
         }
         private void Clock_Tick(object sender = null, EventArgs e = null)
         {
-            Focus();
             ticks++;
             snake.direction = direction_buffer;
             snake.Move();
             Draw();
-            if (!snake.alive) Stop_Game();
+            if (!snake.alive)
+            {
+                Stop_Game();
+            }
+            if (Settings.bord_size.x * Settings.bord_size.y - snake.body.Count == 1)
+            {
+                Defeat_Window victoy_window = new Defeat_Window();
+                victoy_window.ShowDialog();
+                victoy_window.Dispose();
+                Reset_Button_Click();
+            }
         }
         private void Draw()
         {
             Score_Display.Text = string.Format("{0:000}", snake.body.Count);
             Ticks_Display.Text = string.Format("{0:000}", ticks);
-            Generic_Display.Text = string.Format("{0}, {1}\n{2}, {3}\n{4}\n{5}", Settings.bord_size[0], Settings.bord_size[1], snake.body[snake.body.Count - 1].x, snake.body[snake.body.Count - 1].y, Settings.tick_speed, Settings.bord_size[0] * Settings.bord_size[1] - snake.body.Count - 1);
+            Generic_Display.Text = string.Format("{0}, {1}\n{2}, {3}\n{4}\n{5}", Settings.bord_size.x, Settings.bord_size.y, snake.body[snake.body.Count - 1].x, snake.body[snake.body.Count - 1].y, Settings.tick_speed, Settings.bord_size.x * Settings.bord_size.y - snake.body.Count - 1);
             Bitmap bitmap = new Bitmap(Game_Board.Width, Game_Board.Height);
             Graphics image = Graphics.FromImage(bitmap);
             image.FillRectangle(Brushes.Gray, 0, 0, Game_Board.Width, Game_Board.Height);
-            for (int i = 0; i < snake.body.Count; i++)
+            for (int i = 0; i < snake.body.Count - 1; i++)
             {
-                image.FillRectangle(snake.alive? (i == snake.body.Count - 1? Brushes.Blue : Brushes.ForestGreen) : Brushes.Red, Settings.cell_size[0] * snake.body[i].x, Settings.cell_size[1] * snake.body[i].y, Settings.cell_size[0], Settings.cell_size[1]);
+                image.FillRectangle(snake.alive ? Brushes.ForestGreen : Brushes.Red, snake.body[i].x * Settings.cell_size.x + Settings.cell_size.x * 0.05f, snake.body[i].y * Settings.cell_size.y + Settings.cell_size.y * 0.05f, Settings.cell_size.x * 0.9f, Settings.cell_size.x * 0.9f);
+                image.DrawLine(new Pen(snake.alive? Brushes.ForestGreen : Brushes.Red, (snake.body[i].x != snake.body[i + 1].x? Settings.cell_size.x : Settings.cell_size.y) * 0.9f), snake.body[i].x * Settings.cell_size.x + Settings.cell_size.x * 0.5f, snake.body[i].y * Settings.cell_size.y + Settings.cell_size.y * 0.5f, snake.body[i + 1].x * Settings.cell_size.x + Settings.cell_size.x * 0.5f, snake.body[i + 1].y * Settings.cell_size.y + Settings.cell_size.y * 0.5f);
             }
-            image.FillEllipse(Brushes.Orange, Settings.cell_size[0] * snake.pill.position.x, Settings.cell_size[1] * snake.pill.position.y, Settings.cell_size[0], Settings.cell_size[1]);
+            image.FillRectangle(snake.alive ? Brushes.Blue : Brushes.Red, snake.body[snake.body.Count - 1].x * Settings.cell_size.x + Settings.cell_size.x * 0.05f, snake.body[snake.body.Count - 1].y * Settings.cell_size.y + Settings.cell_size.y * 0.05f, Settings.cell_size.x * 0.9f, Settings.cell_size.y * 0.9f);
+            image.FillEllipse(Brushes.Orange, snake.pill.position.x * Settings.cell_size.x + Settings.cell_size.x * 0.1f, snake.pill.position.y * Settings.cell_size.y + Settings.cell_size.y * 0.1f, Settings.cell_size.x * 0.8f, Settings.cell_size.y * 0.8f);
             Game_Board.Image = bitmap;
         }
         private void Snake_Window_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (new Keys[] { Keys.Up, Keys.Down, Keys.Left, Keys.Right }.Contains(e.KeyData))
+            if (new Keys[4] { Keys.Up, Keys.Down, Keys.Left, Keys.Right }.Contains(e.KeyData))
             {
                 e.IsInputKey = true;
             }
